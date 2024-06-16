@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<script src="https://kit.fontawesome.com/fd3b6d4b50.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="tdl2.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>To-Do List</h1>
+            <ul id="todo-list"></ul>
+            <div>
+                <input type="text" id="task-input" placeholder="Add a new task...">
+                <button onclick="addTask()">Add Task</button>
+                <button onclick="removeSelectedTasks()">Remove Selected Tasks</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p  class="foota">&copy; Baibhav Corporation Pvt Ltd</p>
+            <p  class="foot">Made with <i class="fa fa-heart"></i> and <i class="fa fa-laptop-code"></i>&nbsp;.</p>
+        </footer>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskInput = document.getElementById("task-input");
+            var task = taskInput.value.trim();
+            if (task) {
+                var listItem = document.createElement("li");
+                
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.onclick = function() {
+                    toggleCompleted(this);
+                };
+                
+                var taskText = document.createElement("span");
+                taskText.textContent = task;
+                
+                listItem.appendChild(checkbox);
+                listItem.appendChild(taskText);
+                document.getElementById("todo-list").appendChild(listItem);
+                
+                taskInput.value = "";
+            }
+        }
+    
+        function removeSelectedTasks() {
+            var list = document.getElementById("todo-list");
+            var checkboxes = list.getElementsByTagName("input");
+            for (var i = checkboxes.length - 1; i >= 0; i--) {
+                if (checkboxes[i].checked) {
+                    list.removeChild(checkboxes[i].parentNode);
+                }
+            }
+        }
+    
+        function toggleCompleted(checkbox) {
+            var taskText = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                taskText.classList.add("completed");
+            } else {
+                taskText.classList.remove("completed");
+            }
+        }
+    </script>
+</body>
+</html>
